@@ -1,15 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BookForm from '../components/BookForm';
 import BookList from '../components/BookList';
+import {db} from '../firebase/config';
+import { collection,getDocs } from 'firebase/firestore';
+import { useCollection } from '../hooks/useCollection';
 
 const Home = () => {
 
-    const [books,setBooks] = useState([
-        {title:'Kitap 1', id:1},
-        {title:'Kitap 2', id:2},
-        {title:'Kitap 3', id:3},
-        {title:'Kitap 4', id:4},
-    ]);
+  const{documents:books} = useCollection('books');
+
+
+  // const [books,setBooks] = useState(null);
+
+  // useEffect(()=>{
+
+  //   const ref = collection(db,'books');
+
+  //   getDocs(ref)
+
+  //   .then((snap)=>{
+
+  //     let result =[];
+
+  //     snap.forEach(doc=>{
+  //       // console.log(doc.data())
+  //         result.push({id:doc.id,...doc.data()})
+  //     })
+
+  //     setBooks(result)
+  //   })
+  // },[]);
+  
 
   return (
 
@@ -17,6 +38,7 @@ const Home = () => {
         {books && <BookList books={books} />}
         <BookForm />
     </div>
+    
   )
 }
 

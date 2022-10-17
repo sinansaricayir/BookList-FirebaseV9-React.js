@@ -1,14 +1,17 @@
 import React from 'react'
 import { useState } from 'react';
+import { useSingup } from '../hooks/useSignup';
 
 const Signup = () => {
 
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
+    const {error,signup} = useSingup();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email,password)
+        // console.log(email,password)
+        signup(email,password);
     }
     
     return (
@@ -22,7 +25,7 @@ const Signup = () => {
                     type='email'
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
-                    />
+                />
             </label>
             <label>
                 <span>Parola : </span>
@@ -34,6 +37,7 @@ const Signup = () => {
                  />
             </label>
             <button>Üye Ol</button>
+            {error && <p>{error}</p>}
         </form>
     </div>
   )

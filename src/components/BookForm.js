@@ -1,4 +1,6 @@
 import { useState } from "react";
+import {db} from '../firebase/config';
+import { collection,addDoc } from "firebase/firestore";
 
 const BookForm = () => {
 
@@ -6,13 +8,20 @@ const BookForm = () => {
 
     const handleSubmit = async(e) =>{
          e.preventDefault()
-         console.log(newBook)
+        //  console.log(newBook)
+
+        const ref = collection(db,'books');
+
+        await addDoc(ref,{
+          title:newBook
+        });
+
          setNewBook('')
     }    
 
     
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='add-book'>
         <label>
             <span>Yeni Kitap Ekle</span>
             <input 
