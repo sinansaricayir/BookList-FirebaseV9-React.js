@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useLogin } from '../hooks/useLogin';
 
 const Login = () => {
 
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
+    const{login,error} = useLogin();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email,password)
+        // console.log(email,password)
+        login(email,password)
     }
 
   return (
@@ -33,6 +37,7 @@ const Login = () => {
                  />
             </label>
             <button>Giriş</button>
+            {error && <p>{error.message}</p>}
         </form>
     </div>
   )
